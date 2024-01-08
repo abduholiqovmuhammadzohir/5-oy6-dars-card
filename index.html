@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
+
 <body>
+    <div class="wrapper">
 
-    
-    <div class="from-wrapper">
-        <input type="text" id="rasm" placeholder="Rasm url...">
-        <input type="text" id="name" placeholder="Enter name...">
+        <div class="login-box">
+          <form class="from" action="">
+            <h2>Create Cards</h2>
+      
+            <div class="input-box">
+          
+              <input id="name" type="text" required>
+              <label>Card Title</label>
+            </div>
+      
+            <div class="input-box">
+            
+              <input id="description" type="text" required>
+              <label>Decription</label>
+            </div>
+               <div class="input-box">
+              
+              <input id="rasm" type="text" required>
+              <label>Enter picture...</label>
+            </div>
+            
+      
+      
+            <button id="btn" type="submit">Submit</button>
+      
+           
+          </form>
+        </div>
+        <div id="cards_one" class="cards_jig" >
 
-        <textarea name="" id="description" cols="30" rows="10"></textarea>
-
-        <button id="btn">Saqlash</button>
-    </div>
-
-    <table class="table">
-        <thead>
-            <th>Rasm</th>
-            <th>Nomi</th>
-            <th>Izoh</th>
-        </thead>
-
-        <tbody id="tbody">
-            <!-- <tr>
-                <td>1</td>
-                <td>feruzbek</td>
-                <td>12</td>
-                <td>bmw</td>
-                <td>Yaxshi bola</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>elbek</td>
-                <td>12</td>
-                <td>bmw</td>
-                <td>Yaxshi bola</td>
-            </tr> -->
-        </tbody>
-    </table>
-
-
-
+        </div>
+      </div>
     <script src="./index.js"></script>
 </body>
+
 </html>

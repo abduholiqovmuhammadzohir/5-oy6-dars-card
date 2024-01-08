@@ -2,128 +2,147 @@ const btn = document.getElementById('btn');
 const name = document.getElementById('name');
 const rasm = document.getElementById('rasm');
 const desc = document.getElementById('description');
-const tbody = document.getElementById('tbody');
+const cards = document.getElementById('cards_one')
 
 function validate() {
     if (!name.value) {
         name.focus();
-        name.style.outlineColor = 'red';
+        name.style.borderColor = "red";
         return false;
     } else {
-        name.style.outlineColor = 'lightgray';
+        name.style.borderColor = "light-gray";
     }
-    if (!rasm.value) {
-        rasm.focus();
-        rasm.style.outlineColor = 'red';
+
+    if (!name.value.trim()) {
+        name.value = "";
+        alert("Probellardan iborat bo'lishi mumkin emas!!");
+        name.focus();
+        name.style.borderColor = "red";
         return false;
     } else {
-        rasm.style.outlineColor = 'lightgray';
+        name.style.borderColor = "light-gray";
     }
+    if (name.value.length <= 4) {
+        alert("Ishoralar soni 4 tadan kam bo'lishi mumkin emas!!!");
+        name.value = "";
+        name.focus();
+        name.style.borderColor = "red";
+        return false;
+    } else {
+        name.style.borderColor = "light-gray";
+    }
+
     if (!desc.value) {
         desc.focus();
-        desc.style.outlineColor = 'red';
-        alert("Izoh kiritilmadi")
-        return false
-
+        desc.style.borderColor = "red";
+        return false;
     } else {
-        desc.style.outlineColor = 'lightgray';
+        desc.style.borderColor = "yellow";
+    }
+    if (!desc.value.trim()) {
+        desc.value = "";
+        alert("Probellardan iborat bo'lishi mumkin emas!!");
+        desc.focus();
+        desc.style.borderColor = "red";
+        return false;
+    } else {
+        desc.style.borderColor = "light-gray";
+    }
+    if (desc.value.length <= 4 || desc.value.length >= 50) {
+        alert("Ishoralar soni 4 tadan kam bo'lishi  yoki 50 tadan ko'p mumkin emas!!!");
+        desc.value = "";
+        desc.focus();
+        desc.style.borderColor = "red";
+        return false;
+    } else {
+        desc.style.borderColor = "light-gray";
+    }
+
+    if (!rasm.value) {
+        rasm.focus();
+        rasm.style.borderColor = "red";
+        return false;
+    } else {
+        rasm.style.borderColor = "Green";
+    }
+    if (!rasm.value.trim()) {
+        rasm.value = "";
+        alert("Probellardan iborat bo'lishi mumkin emas!!");
+        rasm.focus();
+        rasm.style.borderColor = "red";
+        return false;
+    } else {
+        rasm.style.borderColor = "light-gray";
+    }
+    if (rasm.value.length <= 4) {
+        alert("Ishoralar soni 4 tadan kam bo'lishi mumkin emas!!!");
+        rasm.value = "";
+        rasm.focus();
+        rasm.style.borderColor = "red";
+        return false;
+    } else {
+        rasm.style.borderColor = "light-gray";
+    }
+
+    if (rasm.value.slice(0, 8) !== "https://" && rasm.value.length <= 15) {
+        alert("Siz notog'ri link yubordingiz iltimos qaytadan urinib ko'ring...");
+        rasm.value = "";
+        rasm.focus();
+        return false
     }
 
     return true;
-
 }
 
-function clear() {
-    name.value = '';
-    rasm.value = '';
-    desc.value = '';
-}
 
-btn && btn.addEventListener('click', function () {
-    if (validate()) {
-        const user = {
-            id: Date.now(),
-            name: name.value,
-            rasm: rasm.value,
-            desc: desc.value,
-        }
-
-        let dataLocalStorage = [];
-        if (localStorage.getItem('users')) {
-            dataLocalStorage = JSON.parse(localStorage.getItem('users'));
-        }
-
-        dataLocalStorage.push(user);
-        localStorage.setItem('users', JSON.stringify(dataLocalStorage));
-        const tr = createRowOptimised(user, dataLocalStorage.lenght + 1);
-        tbody.innerHTML += tr;
-        clear();
-
-    }
-})
-
-function createRow(user, index) {
-    const tr = document.createElement('tr');
-
-    const tdName = document.createElement('td');
-    tdName.innerHTML = user.name;
-
-    const tdRasm = document.createElement('td');
-    tdRasm.innerHTML = user.rasm;
-
-    const tdDesc = document.createElement('td');
-    tdDesc.innerHTML = user.desc;
-
-    tr.appendChild(tdNo);
-    tr.appendChild(tdName);
-    tr.appendChild(tdRasm);
-    tr.appendChild(tdDesc);
-
-    return tr;
-
-}
-
-function createRowOptimised(user, index) {
+function createElements(data) {
     return `
-            <tr>
-                <td>${user.rasm}</td>
-                <td>${user.name}</td>
-                <td>${user.desc}</td>
-            </tr>
+    <div  class="card_one" style="width: 18rem;">
+    <img id="cardes" src="${data.img}" width="250px" height="200px class="card-img-top">
+    <div class="card-body">
+      <h3 class="card-title">${data.name}</h3>
+      <p class="card-text">${data.desc}</p>
+    </div>
+  </div>
     `
 }
 
+function clear() {
+    name.value = "";
+    desc.value = "";
+    rasm.value = "";
+}
+
 document.addEventListener('DOMContentLoaded', function () {
-    let data = [];
-    if (localStorage.getItem('users')) {
-        data = JSON.parse(localStorage.getItem('users'))
+    let data = []
+    if (localStorage.getItem("elements")) {
+        data = JSON.parse(localStorage.getItem('elements'))
+    }
+    data.forEach(element => {
+        let card = createElements(element);
+        cards.innerHTML += card
+    });
+
+
+})
+
+
+btn && btn.addEventListener("click", function () {
+    if (validate()) {
+        const element = {
+            name: name.value,
+            desc: desc.value,
+            img: rasm.value
+        }
+        let data = [];
+        if (localStorage.getItem('elements')) {
+            data = JSON.parse(localStorage.getItem('elements'))
+        }
+        data.push(element)
+        localStorage.setItem('elements', JSON.stringify(data))
+
+        let card = createElements(element)
+        cards.innerHTML += card
+        clear();
     };
-
-    if (data.lenght && tbody) {
-        data.forEach((element, index) => {
-            const tr = createRowOptimised(element, index + 1);
-            // tbody.appendChild(tr);
-            tbody.innerHTML += tr;
-        });
-    }
-    const deleteButtons = document.querySelectorAll('spam.delete');
-
-    if (deleteButtons.length) {
-        deleteButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const elId = this.getAttribute('data-id').slice(5);
-                if (elTd) {
-                    let isDelete = confirm("Rostan ham o'chiroqchimisiz");
-                    if (isDelete) {
-                        data = data.filter(el => {
-                            return el.id != elId
-                        })
-                        localStorage.setItem('users', JSON.stringify(data));
-                        window.location.rellod()
-                    }
-                }
-            })
-        });
-    }
 });
-
