@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+.from-wrapper{
+    width: 600px;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input,button,select{
+    padding: 10px;
+}
+
+textarea{
+    resize: none;
+}
+button{
+    cursor: pointer;
+}
+
+.table{
+    border: 1px solid black;
+    width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 20px;
+    text-align: center;
+}
+th,td{
+    border: 1px solid black;
+    padding: 10px;
+}
+
+td .update {
+    margin-right: 20px;
+    color: blue;
+    cursor: pointer;
+}
+td .delete {
+    color: red;
+    cursor: pointer;
+}
